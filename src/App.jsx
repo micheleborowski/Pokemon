@@ -1,9 +1,9 @@
 import React from 'react';
-import Routes from "./routes";
+import Rota from "./routes";
 
 function App() {
   return (
-    <Routes></Routes>
+    <Rota></Rota>
   );
 }
 
