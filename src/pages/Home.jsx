@@ -1,16 +1,17 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import Imagem from "../components/Imagem";
 import pokemonLogo from "../assets/pokemonLogo.png";
 const DivPage= styled.div`
     background-image: linear-gradient(to right, rgba(0,214,143,1),  rgba(0,214,143,0.48) );
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    height: 100%;
 `;
-const ImagePokemon = styled(Imagem)`
-    width:50px;
+const ImagePokemon = styled.img`
+    width: 250px;
 `;
 
 const LogoDiv = styled.div` 
