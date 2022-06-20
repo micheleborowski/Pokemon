@@ -14,15 +14,16 @@ const DivBotao = styled.div`
     justify-content: center;
 `;
 
-const Botao = styled.button`
-opacity:0;
-`;
-
 const ImageSearch = styled.img`
   position: relative;
-  opacity: 1;
+  opacity: 0;
   transition: opacity 0.2s linear;
-  
+`;
+
+const Botao = styled.button`
+&:hover + ${ImageSearch}{
+    opacity: 1;
+ }
 `;
 
 const Container = styled.div`
@@ -39,11 +40,10 @@ const ImageAshFront = styled.div`
   width: 64px;
   height: 64px;
   cursor: pointer;
-&:hover + ${Botao}{
+
+  &:hover + ${ImageSearch}{
     opacity: 1;
-    border
  }
- 
 `;
 
 const DivPage = styled.div`
@@ -60,11 +60,8 @@ function Map() {
       <SideBar></SideBar>
       <Container>
         <DivBotao>
-            <ImageAshFront> </ImageAshFront>
-            <Botao>
-                <ImageSearch src={searchTooltip}></ImageSearch>
-            </Botao>
-          
+            <ImageSearch src={searchTooltip}></ImageSearch>
+            <Botao><ImageAshFront></ImageAshFront></Botao>
         </DivBotao>
       </Container>
     </DivPage>
