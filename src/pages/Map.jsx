@@ -5,25 +5,12 @@ import pageBackground from "../assets/pageBackground.png";
 import ashFront from "../assets/ashFront.png";
 import SideBar from "../components/sideBar";
 import searchTooltip from "../assets/searchTooltip.png";
-const DivBotao = styled.div`
-    width: 300px;
-    height: 300px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`;
+
+const TooltipHoverElement = styled.div``;
 
 const ImageSearch = styled.img`
-  position: relative;
   opacity: 0;
   transition: opacity 0.2s linear;
-`;
-
-const Botao = styled.button`
-&:hover + ${ImageSearch}{
-    opacity: 1;
- }
 `;
 
 const Container = styled.div`
@@ -34,16 +21,13 @@ const Container = styled.div`
   height: 100%;
 `;
 
-const ImageAshFront = styled.div`
-//   position: absolute;
-  background-image: url(${ashFront});
-  width: 64px;
-  height: 64px;
-  cursor: pointer;
+const TooltipElement = styled.div`
+&:hover + ${ImageSearch}{
+  opacity: 0;
+}`;
 
-  &:hover + ${ImageSearch}{
-    opacity: 1;
- }
+const ImageAshFront = styled.img`
+  cursor: pointer;
 `;
 
 const DivPage = styled.div`
@@ -55,14 +39,13 @@ const DivPage = styled.div`
 `;
 
 function Map() {
+
   return (
     <DivPage>
       <SideBar></SideBar>
       <Container>
-        <DivBotao>
-            <ImageSearch src={searchTooltip}></ImageSearch>
-            <Botao><ImageAshFront></ImageAshFront></Botao>
-        </DivBotao>
+        <TooltipHoverElement><ImageSearch src={searchTooltip}></ImageSearch></TooltipHoverElement>
+        <TooltipElement><ImageAshFront src={ashFront}></ImageAshFront></TooltipElement>                                                            
       </Container>
     </DivPage>
   );
