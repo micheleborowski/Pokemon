@@ -10,11 +10,17 @@ import searchingTooltip from "../assets/searchingTooltip.png";
 import ashLeft from "../assets/ashLeftLeg.png";
 import ashRight from "../assets/ashRightLeg.png";
 
+const ChangeAnimation = keyframes`  
+  from {background-image: url(${ashLeft}); }
+  to { background-image: url(${ashRight}); }
+`;
 const DivRunning = styled.div`
   position: relative;
+  width: 44px;
+  height: 54px;
   margin: 0 auto;
   animation-name: ${ChangeAnimation};
-  animation-duration: 1s;
+  animation-duration: 0.25s;
   animation-iteration-count: infinite;
 `;
 
@@ -22,18 +28,14 @@ const DivLoading = styled.div``;
 
 const ImageLoading = styled.img``;
 
-const ImageAshLeft = styled.img`
-  position: absolute;
-`;
+// const ImageAshLeft = styled.img`
+//   position: absolute;
+// `;
 
-const ImageAshRight = styled.img`
-  position: absolute;
-`;
+// const ImageAshRight = styled.img`
+//   position: absolute;
+// `;
 
-const ChangeAnimation = keyframes`  
-  from { opacity: 0; }
-  to { opacity: 1; }
-`;
 const ImageSearch = styled.img`
   opacity: 0;
   transition: opacity 0.2s linear;
@@ -71,11 +73,15 @@ const DivPage = styled.div`
 
 function Map() {
   const [loading, setLoading] = useState(false);
-  //Enquanto não achar o pokemon a imagem fica transitando
   async function searchPokemon() {
     setLoading(true);
-    const response = await fetch("https://pokeapi.co/api/v2/pokemon/ditto");
-    console.log(response);
+    const apiPokemon = "https://pokeapi.co/api/v2/pokemon/";
+    const idAleatorio = (min, max) => {
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    };
+    const response = await fetch(`${apiPokemon}${idAleatorio(1, 807)}/`);
+    console.log(response.json);
+
     setTimeout(() => {
       setLoading(false);
     }, 5000);
@@ -98,10 +104,7 @@ function Map() {
         {loading && (
           <DivLoading>
             <ImageLoading src={searchingTooltip}></ImageLoading>
-            <DivRunning>
-              <ImageAshLeft src={ashLeft}></ImageAshLeft>
-              <ImageAshRight src={ashRight}></ImageAshRight>
-            </DivRunning>
+            <DivRunning></DivRunning>
           </DivLoading>
         )}
       </Container>
