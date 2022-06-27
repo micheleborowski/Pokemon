@@ -28,14 +28,6 @@ const DivLoading = styled.div``;
 
 const ImageLoading = styled.img``;
 
-// const ImageAshLeft = styled.img`
-//   position: absolute;
-// `;
-
-// const ImageAshRight = styled.img`
-//   position: absolute;
-// `;
-
 const ImageSearch = styled.img`
   opacity: 0;
   transition: opacity 0.2s linear;
@@ -72,7 +64,9 @@ const DivPage = styled.div`
 `;
 
 function Map() {
+  const [PokemonInfo, setPokemonInfo] = useState([]);
   const [loading, setLoading] = useState(false);
+
   async function searchPokemon() {
     setLoading(true);
     const apiPokemon = "https://pokeapi.co/api/v2/pokemon/";
@@ -80,11 +74,19 @@ function Map() {
       return Math.floor(Math.random() * (max - min + 1) + min);
     };
     const response = await fetch(`${apiPokemon}${idAleatorio(1, 807)}/`);
-    console.log(response.json);
+    console.log(response.json());
 
     setTimeout(() => {
       setLoading(false);
     }, 5000);
+
+    const mapeamento = response.map((item) => {
+      <div>
+        <p>{item.id}</p>
+        <p>{item.name}</p>
+      </div>;
+    });
+    setPokemonInfo(mapeamento);
   }
 
   return (
@@ -105,6 +107,7 @@ function Map() {
           <DivLoading>
             <ImageLoading src={searchingTooltip}></ImageLoading>
             <DivRunning></DivRunning>
+            {mapeamento}
           </DivLoading>
         )}
       </Container>
