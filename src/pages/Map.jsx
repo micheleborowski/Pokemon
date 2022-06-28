@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import styled, { keyframes } from "styled-components";
 
+import Modal from "../UI/Modal/Modal";
 import pageBackground from "../assets/pageBackground.png";
 import ashFront from "../assets/ashFront.png";
 import SideBar from "../components/sideBar";
@@ -111,12 +112,7 @@ function Map() {
           </TooltipElement>
         )}
 
-        {PokemonInfo && (
-          <div>
-            <h1>Pokemon</h1>
-            <button onClick={showPokemon}>PokeBola</button>
-          </div>
-        )}
+        {PokemonInfo && <Modal isOpen></Modal>}
 
         <ul>
           {pokemonList.map((pokemon) => {
