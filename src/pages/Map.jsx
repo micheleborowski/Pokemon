@@ -64,9 +64,14 @@ const DivPage = styled.div`
 `;
 
 function Map() {
-  const [PokemonInfo, setPokemonInfo] = useState([]);
+  const [PokemonInfo, setPokemonInfo] = useState();
   const [loading, setLoading] = useState(false);
+  const [pokemonList, setPokemonList] = useState([]);
 
+  function showPokemon() {
+    setPokemonInfo(undefined);
+    setPokemonList([...pokemonList, PokemonInfo]);
+  }
   async function searchPokemon() {
     setLoading(true);
     const apiPokemon = "https://pokeapi.co/api/v2/pokemon/";
@@ -74,20 +79,23 @@ function Map() {
       return Math.floor(Math.random() * (max - min + 1) + min);
     };
     const response = await fetch(`${apiPokemon}${idAleatorio(1, 807)}/`);
-    console.log(response.json());
+    const data = await response.json();
+
+    const novoPokemon = {
+      id: data.id,
+      nome: data.name,
+      altura: data.height,
+      peso: data.types.weight,
+      tipos: data.types,
+      habilidades: data.abilities,
+    };
 
     setTimeout(() => {
       setLoading(false);
+      setPokemonInfo(novoPokemon);
     }, 5000);
-
-    const mapeamento = response.map((item) => {
-      <div>
-        <p>{item.id}</p>
-        <p>{item.name}</p>
-      </div>;
-    });
-    setPokemonInfo(mapeamento);
   }
+  console.log(PokemonInfo);
 
   return (
     <DivPage>
@@ -103,11 +111,23 @@ function Map() {
           </TooltipElement>
         )}
 
+        {PokemonInfo && (
+          <div>
+            <h1>Pokemon</h1>
+            <button onClick={showPokemon}>PokeBola</button>
+          </div>
+        )}
+
+        <ul>
+          {pokemonList.map((pokemon) => {
+            return <li>{pokemon.id}</li>;
+          })}
+        </ul>
+
         {loading && (
           <DivLoading>
             <ImageLoading src={searchingTooltip}></ImageLoading>
             <DivRunning></DivRunning>
-            {mapeamento}
           </DivLoading>
         )}
       </Container>
