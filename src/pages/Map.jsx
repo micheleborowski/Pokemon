@@ -65,13 +65,13 @@ const DivPage = styled.div`
 `;
 
 function Map() {
-  const [PokemonInfo, setPokemonInfo] = useState();
+  const [pokemonInfo, setPokemonInfo] = useState();
   const [loading, setLoading] = useState(false);
   const [pokemonList, setPokemonList] = useState([]);
 
   function showPokemon() {
     setPokemonInfo(undefined);
-    setPokemonList([...pokemonList, PokemonInfo]);
+    setPokemonList([...pokemonList, pokemonInfo]);
   }
   async function searchPokemon() {
     setLoading(true);
@@ -96,7 +96,7 @@ function Map() {
       setPokemonInfo(novoPokemon);
     }, 5000);
   }
-  console.log(PokemonInfo);
+  console.log(pokemonInfo);
 
   return (
     <DivPage>
@@ -112,7 +112,16 @@ function Map() {
           </TooltipElement>
         )}
 
-        {PokemonInfo && <Modal isOpen></Modal>}
+        {pokemonInfo && (
+          <Modal isOpen={pokemonInfo}>
+            <p>{pokemonInfo.nome}</p>
+            <p>{pokemonInfo.altura}</p>
+            {/* <p>{pokemonInfo.peso}</p>
+            <p>{pokemonInfo.tipos}</p>
+            <p>{pokemonInfo.habilidades}</p> */}
+            <button onClick={showPokemon}> fechar </button>
+          </Modal>
+        )}
 
         <ul>
           {pokemonList.map((pokemon) => {

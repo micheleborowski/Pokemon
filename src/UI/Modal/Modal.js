@@ -1,23 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
+import Portal from "../Portal/Portal";
+import {Backdrop, Content} from './styles';
 
-const portal = document.getElementById('portal-root');
-
-function showPokemon() {
-    setPokemonInfo(undefined);
-    setPokemonList([...pokemonList, PokemonInfo]);
+const Modal = ({ isOpen, children, onSave}) => {
+  if (!isOpen) {
+    return null;
   }
 
-
-const Modal = ({children})=>{
-    return ReactDOM.createPortal(
-        <div>
-            <h1>Pokemon</h1>
-            <button onClick={showPokemon}>PokeBola</button>
-            {children}
-        </div>,
-        portal,
-    );
+  return (
+    <Portal>
+      <Backdrop>
+        <Content className="modal-content">{children}</Content>
+      </Backdrop>
+    </Portal>
+  );
 };
 
 export default Modal;
