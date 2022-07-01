@@ -1,78 +1,45 @@
+// front_default":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png"
 import React from "react";
 import { useState } from "react";
-import styled, { keyframes } from "styled-components";
 
 import Modal from "../UI/Modal/Modal";
-import pageBackground from "../assets/pageBackground.png";
 import ashFront from "../assets/ashFront.png";
 import SideBar from "../components/sideBar";
 import searchTooltip from "../assets/searchTooltip.png";
 import searchingTooltip from "../assets/searchingTooltip.png";
-import ashLeft from "../assets/ashLeftLeg.png";
-import ashRight from "../assets/ashRightLeg.png";
+import pokeBola from "../assets/pokeBola.png";
+import divider from "../assets/Divider.png";
+import close from "../assets/Close.png";
 
-const ChangeAnimation = keyframes`  
-  from {background-image: url(${ashLeft}); }
-  to { background-image: url(${ashRight}); }
-`;
-const DivRunning = styled.div`
-  position: relative;
-  width: 44px;
-  height: 54px;
-  margin: 0 auto;
-  animation-name: ${ChangeAnimation};
-  animation-duration: 0.25s;
-  animation-iteration-count: infinite;
-`;
-
-const DivLoading = styled.div``;
-
-const ImageLoading = styled.img``;
-
-const ImageSearch = styled.img`
-  opacity: 0;
-  transition: opacity 0.2s linear;
-`;
-
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-`;
-
-const TooltipElement = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  &:hover > ${ImageSearch} {
-    opacity: 1;
-  }
-`;
-
-const ImageAshFront = styled.img`
-  cursor: pointer;
-`;
-
-const DivPage = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.35);
-  background-image: url(${pageBackground});
-  background-size: cover;
-`;
+import {
+  PokemonImage,
+  Nome,
+  Fisico,
+  FisicoText,
+  Tipos,
+  DivRunning,
+  DivLoading,
+  ImageLoading,
+  ImageSearch,
+  Container,
+  TooltipElement,
+  ImageAshFront,
+  DivPage,
+  PokeBola,
+  DivInfos,
+  Infos,
+  Image,
+  Atributos,
+  Habilidades,
+  DivHabilidades,
+  DivRolagem,
+} from "../UI/StyleMap";
 
 function Map() {
   const [pokemonInfo, setPokemonInfo] = useState();
   const [loading, setLoading] = useState(false);
   const [pokemonList, setPokemonList] = useState([]);
 
-  function showPokemon() {
-    setPokemonInfo(undefined);
-    setPokemonList([...pokemonList, pokemonInfo]);
-  }
   async function searchPokemon() {
     setLoading(true);
     const apiPokemon = "https://pokeapi.co/api/v2/pokemon/";
@@ -85,8 +52,9 @@ function Map() {
     const novoPokemon = {
       id: data.id,
       nome: data.name,
+      hp: data.stats,
       altura: data.height,
-      peso: data.types.weight,
+      peso: data.weight,
       tipos: data.types,
       habilidades: data.abilities,
     };
@@ -97,6 +65,15 @@ function Map() {
     }, 5000);
   }
   console.log(pokemonInfo);
+
+  function showPokemon() {
+    setPokemonInfo(undefined);
+    setPokemonList([...pokemonList, pokemonInfo]);
+  }
+
+  function closePortal(){
+   setPokemonInfo(undefined); 
+  }
 
   return (
     <DivPage>
@@ -114,12 +91,53 @@ function Map() {
 
         {pokemonInfo && (
           <Modal isOpen={pokemonInfo}>
-            <p>{pokemonInfo.nome}</p>
-            <p>{pokemonInfo.altura}</p>
-            {/* <p>{pokemonInfo.peso}</p>
-            <p>{pokemonInfo.tipos}</p>
-            <p>{pokemonInfo.habilidades}</p> */}
-            <button onClick={showPokemon}> fechar </button>
+            <DivRolagem>
+              <div>
+                <img src={close} onClick={closePortal}></img>
+                <PokemonImage
+                  src={
+                    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" +
+                    pokemonInfo.id +
+                    ".png"
+                  }
+                ></PokemonImage>
+              </div>
+              <Nome>{pokemonInfo.nome}</Nome>
+              <DivInfos>
+                <Infos>
+                  <Fisico>hp</Fisico>
+                  <FisicoText>45/45</FisicoText>
+                </Infos>
+                <img src={divider}></img>
+                <Infos>
+                  <Fisico>altura</Fisico>
+                  <FisicoText>{pokemonInfo.altura}</FisicoText>
+                </Infos>
+                <img src={divider}></img>
+                <Infos>
+                  <Fisico>peso</Fisico>
+                  <FisicoText>{pokemonInfo.peso}</FisicoText>
+                </Infos>
+              </DivInfos>
+              <Atributos>tipo</Atributos>
+              {pokemonInfo.tipos.map((tipo) => {
+                return <Tipos>{tipo.type.name}</Tipos>;
+              })}
+
+              <Atributos>habilidades</Atributos>
+              <DivHabilidades>
+                {pokemonInfo.habilidades.map((habilidade) => {
+                  return (
+                    <Habilidades>{habilidade.ability.name + ", "}</Habilidades>
+                  );
+                })}
+              </DivHabilidades>
+            </DivRolagem>
+            <Image
+              onClick={showPokemon}
+              src={pokeBola}
+              style={{ position: "absolute" }}
+            ></Image>
           </Modal>
         )}
 

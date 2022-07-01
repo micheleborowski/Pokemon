@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes } from "styled-components";
 
 const FadeInAnimation = keyframes`  
   from { opacity: 0; }
@@ -6,7 +6,7 @@ const FadeInAnimation = keyframes`
 `;
 
 export const Backdrop = styled.div`
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
@@ -27,15 +27,22 @@ export const Content = styled.div`
   position: relative;
   padding: 2rem;
 
-  // min-height: 50px;
-  // min-width: 50px;
-  // max-height: 90%;
-  // max-width: 80%;
+  height: 520px;
+  width: 360px;
+
+  left: 0px;
+  top: 0px;
+  border-radius: 8px;
 
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 
   background-color: #fff;
   border-radius: 2px;
 
-  overflow-y: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  overflow:auto;
+  // overflow: hidden;
 `;
