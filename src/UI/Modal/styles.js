@@ -25,24 +25,21 @@ export const Backdrop = styled.div`
 
 export const Content = styled.div`
   position: relative;
-  padding: 2rem;
 
-  height: 520px;
+  height: 559px;
   width: 360px;
-
-  left: 0px;
-  top: 0px;
-  border-radius: 8px;
+  
+  right:0;
+  left: 0;
+  top: 0;
+  bottom:0;
+  border-radius: 24px;
+  border-top-right-radius:0px;
+  border-bottom-right-radius:0px;
 
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 
   background-color: #fff;
-  border-radius: 2px;
 
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  align-items: center;
-  overflow:auto;
-  // overflow: hidden;
+  overflow: auto;
 `;

@@ -8,32 +8,20 @@ import SideBar from "../components/sideBar";
 import searchTooltip from "../assets/searchTooltip.png";
 import searchingTooltip from "../assets/searchingTooltip.png";
 import pokeBola from "../assets/pokeBola.png";
-import divider from "../assets/Divider.png";
-import close from "../assets/Close.png";
 
 import {
-  PokemonImage,
-  Nome,
-  Fisico,
-  FisicoText,
-  Tipos,
+  ImageSearch,
   DivRunning,
   DivLoading,
   ImageLoading,
-  ImageSearch,
   Container,
   TooltipElement,
   ImageAshFront,
   DivPage,
-  PokeBola,
-  DivInfos,
-  Infos,
   Image,
-  Atributos,
-  Habilidades,
-  DivHabilidades,
-  DivRolagem,
+  DivPokeBola,
 } from "../UI/StyleMap";
+import Dialog from "../components/Map/Dialog/Dialog";
 
 function Map() {
   const [pokemonInfo, setPokemonInfo] = useState();
@@ -52,7 +40,7 @@ function Map() {
     const novoPokemon = {
       id: data.id,
       nome: data.name,
-      hp: data.stats,
+      hp: data.stats.find((elemento) => elemento.stat.name === "hp"),
       altura: data.height,
       peso: data.weight,
       tipos: data.types,
@@ -71,10 +59,6 @@ function Map() {
     setPokemonList([...pokemonList, pokemonInfo]);
   }
 
-  function closePortal(){
-   setPokemonInfo(undefined); 
-  }
-
   return (
     <DivPage>
       <SideBar></SideBar>
@@ -91,53 +75,13 @@ function Map() {
 
         {pokemonInfo && (
           <Modal isOpen={pokemonInfo}>
-            <DivRolagem>
-              <div>
-                <img src={close} onClick={closePortal}></img>
-                <PokemonImage
-                  src={
-                    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" +
-                    pokemonInfo.id +
-                    ".png"
-                  }
-                ></PokemonImage>
-              </div>
-              <Nome>{pokemonInfo.nome}</Nome>
-              <DivInfos>
-                <Infos>
-                  <Fisico>hp</Fisico>
-                  <FisicoText>45/45</FisicoText>
-                </Infos>
-                <img src={divider}></img>
-                <Infos>
-                  <Fisico>altura</Fisico>
-                  <FisicoText>{pokemonInfo.altura}</FisicoText>
-                </Infos>
-                <img src={divider}></img>
-                <Infos>
-                  <Fisico>peso</Fisico>
-                  <FisicoText>{pokemonInfo.peso}</FisicoText>
-                </Infos>
-              </DivInfos>
-              <Atributos>tipo</Atributos>
-              {pokemonInfo.tipos.map((tipo) => {
-                return <Tipos>{tipo.type.name}</Tipos>;
-              })}
-
-              <Atributos>habilidades</Atributos>
-              <DivHabilidades>
-                {pokemonInfo.habilidades.map((habilidade) => {
-                  return (
-                    <Habilidades>{habilidade.ability.name + ", "}</Habilidades>
-                  );
-                })}
-              </DivHabilidades>
-            </DivRolagem>
+            <Dialog pokemon={pokemonInfo} onClose={()=>{setPokemonInfo(undefined)}}></Dialog>
+            <DivPokeBola>
             <Image
               onClick={showPokemon}
               src={pokeBola}
-              style={{ position: "absolute" }}
             ></Image>
+            </DivPokeBola>
           </Modal>
         )}
 
