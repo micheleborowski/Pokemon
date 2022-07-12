@@ -22,17 +22,19 @@ export const ImageClose = styled.img`
   border-radius: 0px;
   padding: 12px;
 
-  cursor:pointer;
+  cursor: pointer;
 `;
 
 export const DivEnd = styled.div`
-border-radius: 24px 24px 0px 0px;
+  border-radius: 24px 24px 0px 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
 
   position: relative;
   height: 336px;
+  background-color: #F7F9FC;
+  top: -60px;
 `;
 
 export const PokemonImage = styled.img`
@@ -42,17 +44,17 @@ export const PokemonImage = styled.img`
   top: 32px;
   border-radius: 100%;
   border: 4px solid #00d68f;
-  background: white;
+  background: #F7F9FC;
 
   position: absolute;
-  top: -200px;
+  top: -150px;
 `;
 
 export const DivRolagem = styled.div`
   position: absolute;
-  top: 80px;
-    
-  display:flex;
+  top: 120px;
+
+  display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
@@ -102,9 +104,9 @@ export const FisicoText = styled.p`
 `;
 
 export const ImageDivider = styled.img`
-padding-top:42px;
-height:2px;
-width: 280px;
+  padding-top: 42px;
+  height: 2px;
+  width: 280px;
 `;
 
 export const Atributos = styled.p`

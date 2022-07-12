@@ -8,25 +8,17 @@ import SideBar from "../components/sideBar";
 import searchTooltip from "../assets/searchTooltip.png";
 import searchingTooltip from "../assets/searchingTooltip.png";
 import pokeBola from "../assets/pokeBola.png";
-
-import {
-  ImageSearch,
-  DivRunning,
-  DivLoading,
-  ImageLoading,
-  Container,
-  TooltipElement,
-  ImageAshFront,
-  DivPage,
-  Image,
-  DivPokeBola,
-} from "../UI/StyleMap";
+import error from "../assets/Error.png";
+import * as M from "../UI/StyleMap";
 import Dialog from "../components/Map/Dialog/Dialog";
 
 function Map() {
   const [pokemonInfo, setPokemonInfo] = useState();
   const [loading, setLoading] = useState(false);
-  const [pokemonList, setPokemonList] = useState([]);
+  const [pokemonList, setPokemonList] = useState(Array(6).fill(undefined));
+  const [isFull, setIsFull] = useState(false);
+  const [dialogIsOpen, setDialogIsOpen] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
 
   async function searchPokemon() {
     setLoading(true);
@@ -50,55 +42,99 @@ function Map() {
     setTimeout(() => {
       setLoading(false);
       setPokemonInfo(novoPokemon);
-    }, 5000);
+      setDialogIsOpen(true);
+    }, 1000);
   }
-  console.log(pokemonInfo);
 
-  function showPokemon() {
+  function savePokemon() {
+    const newList = pokemonList;
+    const index = newList.findIndex((pokemon) => pokemon === undefined);
+    newList[index] = pokemonInfo;
+    setPokemonList(newList);
+
+    if (newList[newList.length-1] !== undefined) {
+      setIsFull(true);
+    }
+
     setPokemonInfo(undefined);
-    setPokemonList([...pokemonList, pokemonInfo]);
+    setDialogIsOpen(false);
+  }
+
+  function freePokemon(pokemon) {
+    console.log(pokemonList);
+    const filteredList = pokemonList.filter((element)=> element?.id !== pokemon.id);
+    filteredList.push(undefined);
+    setPokemonList(filteredList);
+    setIsFull(false);
+    setIsSaved(false);
+    setDialogIsOpen(false);
   }
 
   return (
-    <DivPage>
-      <SideBar></SideBar>
-      <Container>
+    <M.DivPage>
+      <SideBar
+        onSelectedPokemon={(pokemon) => {
+          setPokemonInfo(pokemon);
+          setDialogIsOpen(true);
+          setIsSaved(true);
+          console.log(pokemon);
+        }}
+        pokemonList={pokemonList}
+      />
+      <M.Container>
         {!loading && (
-          <TooltipElement>
-            <ImageSearch src={searchTooltip}></ImageSearch>
-            <ImageAshFront
-              onClick={searchPokemon}
-              src={ashFront}
-            ></ImageAshFront>
-          </TooltipElement>
+          <M.TooltipElement>
+            {!isFull && (
+              <>
+                <M.ImageSearch src={searchTooltip}></M.ImageSearch>
+                <M.ImageAshFront
+                  onClick={searchPokemon}
+                  src={ashFront}
+                ></M.ImageAshFront>
+              </>
+            )}
+            {isFull && (
+              <>
+                <M.ImageError src={error}></M.ImageError>
+                <M.ImageAshFront src={ashFront}></M.ImageAshFront>
+              </>
+            )}
+          </M.TooltipElement>
         )}
 
-        {pokemonInfo && (
-          <Modal isOpen={pokemonInfo}>
-            <Dialog pokemon={pokemonInfo} onClose={()=>{setPokemonInfo(undefined)}}></Dialog>
-            <DivPokeBola>
-            <Image
-              onClick={showPokemon}
-              src={pokeBola}
-            ></Image>
-            </DivPokeBola>
+        {dialogIsOpen && (
+          <Modal isOpen={dialogIsOpen}>
+            <Dialog
+              pokemon={pokemonInfo}
+              onClose={() => {
+                setPokemonInfo(undefined);
+                setDialogIsOpen(false);
+                setIsSaved(false);
+              }}
+            ></Dialog>
+            {!isSaved && (
+              <M.DivPokeBola>
+                <M.Image onClick={savePokemon} src={pokeBola}></M.Image>
+              </M.DivPokeBola>
+            )}
+            {isSaved && (
+              <M.DivFree>
+                <M.DivColor onClick={()=>freePokemon(pokemonInfo)}>
+                  <M.TextFree>Liberar pokemon</M.TextFree>
+                </M.DivColor>
+              </M.DivFree>
+            )}
           </Modal>
         )}
 
-        <ul>
-          {pokemonList.map((pokemon) => {
-            return <li>{pokemon.id}</li>;
-          })}
-        </ul>
-
         {loading && (
-          <DivLoading>
-            <ImageLoading src={searchingTooltip}></ImageLoading>
-            <DivRunning></DivRunning>
-          </DivLoading>
+          <M.DivLoading>
+            <M.ImageLoading src={searchingTooltip}></M.ImageLoading>
+            <M.DivRunning></M.DivRunning>
+          </M.DivLoading>
         )}
-      </Container>
-    </DivPage>
+      </M.Container>
+    </M.DivPage>
   );
 }
 

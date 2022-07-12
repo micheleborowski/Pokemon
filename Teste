@@ -1,0 +1,23 @@
+O array ta vazio 
+    <Lista>
+        <ElementoVazio><img src={Icon}></img></ElementoVazio>
+    </Lista>
+    ...6
+
+o array tem 1 elemento 
+    <Lista>
+        <ElementoVazio><img src={pokemon.id}></img><ElementoVazio>
+    </Lista>
+    <Lista>
+        <ElementoVazio><img src={Icon}></img></ElementoVazio>
+    </Lista>
+    ...4
+
+
+
+PokemonList.map((item)=>{
+  item.id ? <PokemonComImagem /> : <Vazio />
+})
+
+
+

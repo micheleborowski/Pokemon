@@ -68,7 +68,42 @@ export const Image = styled.img`
 
   position: fixed;
   bottom: 20px;
-  z-index:1;
+  z-index: 1;
 
-  cursor:pointer;
+  cursor: pointer;
 `;
+
+export const DivFree = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+export const DivColor = styled.div`
+  height: 56px;
+  width: 221px;
+  border-radius: 42px;
+
+  background: #ff3d71;
+
+  display: flex;
+  justify-content: center;
+
+  position: fixed;
+  bottom: 80px;
+  z-index: 1;
+
+  cursor: pointer;
+`;
+export const TextFree = styled.p`
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+
+  text-transform: uppercase;
+
+  color: #ffffff;
+`;
+
+export const ImageError = styled.img``;
