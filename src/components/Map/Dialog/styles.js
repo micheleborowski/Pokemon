@@ -156,3 +156,4 @@ export const Habilidades = styled.p`
 
   color: #2e3a59;
 `;
+

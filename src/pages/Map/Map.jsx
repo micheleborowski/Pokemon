@@ -1,16 +1,17 @@
-// front_default":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png"
 import React from "react";
 import { useState } from "react";
+import * as M from "./StyleMap";
+import Modal from "../../components/Map/Modal/Modal";
+import SideBar from "../../components/Map/SideBar/sideBar";
+import Dialog from "../../components/Map/Dialog/Dialog";
+import CreateDialog from "../../components/Map/Create Dialog/CreateDialog";
 
-import Modal from "../UI/Modal/Modal";
-import ashFront from "../assets/ashFront.png";
-import SideBar from "../components/sideBar";
-import searchTooltip from "../assets/searchTooltip.png";
-import searchingTooltip from "../assets/searchingTooltip.png";
-import pokeBola from "../assets/pokeBola.png";
-import error from "../assets/Error.png";
-import * as M from "../UI/StyleMap";
-import Dialog from "../components/Map/Dialog/Dialog";
+import ashFront from "../../assets/ashFront.png";
+import searchTooltip from "../../assets/searchTooltip.png";
+import searchingTooltip from "../../assets/searchingTooltip.png";
+import pokeBola from "../../assets/pokeBola.png";
+import error from "../../assets/Error.png";
+
 
 function Map() {
   const [pokemonInfo, setPokemonInfo] = useState();
@@ -19,6 +20,7 @@ function Map() {
   const [isFull, setIsFull] = useState(false);
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+  const [isCreated, setIsCreated] = useState(false);
 
   async function searchPokemon() {
     setLoading(true);
@@ -52,7 +54,7 @@ function Map() {
     newList[index] = pokemonInfo;
     setPokemonList(newList);
 
-    if (newList[newList.length-1] !== undefined) {
+    if (newList[newList.length - 1] !== undefined) {
       setIsFull(true);
     }
 
@@ -62,12 +64,19 @@ function Map() {
 
   function freePokemon(pokemon) {
     console.log(pokemonList);
-    const filteredList = pokemonList.filter((element)=> element?.id !== pokemon.id);
+    const filteredList = pokemonList.filter(
+      (element) => element?.id !== pokemon.id
+    );
     filteredList.push(undefined);
     setPokemonList(filteredList);
     setIsFull(false);
     setIsSaved(false);
     setDialogIsOpen(false);
+  }
+
+  function createPokemon() {
+    setDialogIsOpen(true);
+    setIsCreated(true);
   }
 
   return (
@@ -79,6 +88,7 @@ function Map() {
           setIsSaved(true);
           console.log(pokemon);
         }}
+        createPokemon={createPokemon}
         pokemonList={pokemonList}
       />
       <M.Container>
@@ -104,25 +114,39 @@ function Map() {
 
         {dialogIsOpen && (
           <Modal isOpen={dialogIsOpen}>
-            <Dialog
-              pokemon={pokemonInfo}
-              onClose={() => {
-                setPokemonInfo(undefined);
-                setDialogIsOpen(false);
-                setIsSaved(false);
-              }}
-            ></Dialog>
-            {!isSaved && (
-              <M.DivPokeBola>
-                <M.Image onClick={savePokemon} src={pokeBola}></M.Image>
-              </M.DivPokeBola>
+            {!isCreated && (
+              <>
+                <Dialog
+                  pokemon={pokemonInfo}
+                  onClose={() => {
+                    setPokemonInfo(undefined);
+                    setDialogIsOpen(false);
+                    setIsSaved(false);
+                  }}
+                ></Dialog>
+                {!isSaved && (
+                  <M.DivPokeBola>
+                    <M.Image onClick={savePokemon} src={pokeBola}></M.Image>
+                  </M.DivPokeBola>
+                )}
+              </>
             )}
+
             {isSaved && (
               <M.DivFree>
-                <M.DivColor onClick={()=>freePokemon(pokemonInfo)}>
+                <M.DivColor onClick={() => freePokemon(pokemonInfo)}>
                   <M.TextFree>Liberar pokemon</M.TextFree>
                 </M.DivColor>
               </M.DivFree>
+            )}
+            {isCreated && (
+              <CreateDialog
+                onClose={() => {
+                  setPokemonInfo(undefined);
+                  setDialogIsOpen(false);
+                  setIsSaved(false);
+                }}
+              ></CreateDialog>
             )}
           </Modal>
         )}

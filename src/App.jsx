@@ -1,6 +1,6 @@
 import React from 'react';
 import Rota from "./routes";
-import { GlobalStyle } from './UI/GlobalStyle';
+import { GlobalStyle } from './GlobalStyle';
 
 function App() {
   return (

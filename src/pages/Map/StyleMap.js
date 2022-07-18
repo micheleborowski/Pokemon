@@ -1,8 +1,8 @@
 import styled, { keyframes } from "styled-components";
 
-import pageBackground from "../assets/pageBackground.png";
-import ashLeft from "../assets/ashLeftLeg.png";
-import ashRight from "../assets/ashRightLeg.png";
+import pageBackground from "../../assets/pageBackground.png";
+import ashLeft from "../../assets/ashLeftLeg.png";
+import ashRight from "../../assets/ashRightLeg.png";
 
 export const ChangeAnimation = keyframes`  
   from {background-image: url(${ashLeft}); }
@@ -107,3 +107,4 @@ export const TextFree = styled.p`
 `;
 
 export const ImageError = styled.img``;
+
