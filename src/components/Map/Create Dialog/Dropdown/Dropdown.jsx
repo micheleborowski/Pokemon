@@ -1,37 +1,57 @@
 import React from "react";
 import * as D from "./style";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import select from "../../../../assets/Select.png";
 
-function Dropdown() {
-  const [isSelected, setIsSelected] = useState(true);
-  const [pokemonTypes, setPokemonTypes] = useState();
+function Dropdown({ addType }) {
+  const [isSelected, setIsSelected] = useState(false);
+  const [listTypes, setListTypes] = useState([]);
+  const [isType, setIsType] = useState(false);
 
   async function findTypes() {
-    setIsSelected(!isSelected);
-    const apiTipos = "https://pokeapi.co/api/v2/type";
-    const response = await fetch(`${apiTipos}`);
-    const data = response.json();
+    await fetch("https://pokeapi.co/api/v2/type")
+      .then((response) => response.json())
+      .then((data) => {
+        setListTypes([...data.results]);
+      });
+  }
 
-    console.log(data);
-    const tipos = {
-      tipo: data.results.name,
-    };
+  useEffect(() => {
+    findTypes();
+  }, []);
 
-    setPokemonTypes(tipos);
+  function saveType(newType) {
+    addType(newType);
+    setIsType(true);
   }
 
   return (
     <>
       <D.DivSelect>
-        <D.ImgSelect src={select} onClick={findTypes}></D.ImgSelect>
+        {!isType && (
+          <D.LabelSelect
+            type="text"
+            placeholder="Selecione o(s) tipo(s)"
+          ></D.LabelSelect>
+        )}
+        {/* {isType && <>
+        mapear os tipos do pokemon
+        </>} */}
+        <D.ImgSelect
+          src={select}
+          onClick={() => setIsSelected(!isSelected)}
+        ></D.ImgSelect>
       </D.DivSelect>
-      {!isSelected && (
+      {isSelected && (
         <>
           <D.DivDropdown>
-            {pokemonTypes?.map((tipo) => {
-              return <p>{tipo}</p>;
+            {listTypes?.map((tipo, index) => {
+              return (
+                <D.TipoText key={index} onClick={() => saveType(tipo.name)}>
+                  {tipo.name}
+                </D.TipoText>
+              );
             })}
           </D.DivDropdown>
         </>
@@ -41,3 +61,21 @@ function Dropdown() {
 }
 
 export default Dropdown;
+
+{
+  /* <input type="checkbox" name="tipo1"></input>
+                <label for="tipo1">Tipo 1 </label>
+            <input type="checkbox" name="tipo2"></input>
+                <label for="tipo1">Tipo 2 </label>
+            <input type="checkbox" name="tipo3"></input>
+                <label for="tipo1">Tipo 3 </label>
+            <input type="checkbox" name="tipo4"></input>
+                <label for="tipo1">Tipo 4 </label>
+            <input type="checkbox" name="tipo5"></input>
+                <label for="tipo1">Tipo 5 </label>
+            <input type="checkbox" name="tipo6"></input>
+                <label for="tipo1">Tipo 6 </label>
+            <input type="checkbox" name="tipo7"></input>
+                <label for="tipo1">Tipo 7 </label>
+ */
+}

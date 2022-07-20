@@ -9,30 +9,40 @@ import defesa from "../../../assets/defesa.png";
 import { useState } from "react";
 import Dropdown from "./Dropdown/Dropdown";
 
-function CreateDialog({onClose, pokemonList}) {
+function CreateDialog({ onClose, pokemonList }) {
   const [upload, setUpload] = useState(false);
+  const [pokemonType, setPokemonType] = useState([]);
 
-  function uploadImage(e){
+  function uploadImage(e) {
     const target = e.target.files[0];
     const reader = new FileReader(); //Permite ler o conteúdo dos arquivos
-    reader.onload(()=>{
+    reader.onload(() => {
       const output = document.getElement(D.AddImg);
-      output.style.img.src=reader.result
+      output.style.img.src = `"${reader.result}"`;
 
-      // const btnFile = document.getElement(D.inputImage);
-      // btnFile.click();
-    })
+      const btnFile = document.getElement(D.InputImage);
+      btnFile.click();
+    });
     reader.readAsDataURL(target);
   }
+
+  function addType(type) {
+    setPokemonType([...type]);
+  }
+
   return (
     <>
       <D.DivStart>
-        <D.ImageClose src={close}  onClick={onClose}></D.ImageClose>
+        <D.ImageClose src={close} onClick={onClose}></D.ImageClose>
       </D.DivStart>
       <D.DivEnd>
         <D.DivAddImg>
-          <inputImage type="file" accept="image" ></inputImage>
-          <D.AddImg src={addImage} alt="icon add Image" onClick={(e)=>uploadImage(e)}></D.AddImg>
+          <D.InputImage
+            type="file"
+            accept="image"
+            onClick={(e) => uploadImage(e)}
+          ></D.InputImage>
+          <D.AddImg src={addImage} alt="icon add Image"></D.AddImg>
           {/* {upload &&(<D.AddImg src=""></D.AddImg>)} */}
         </D.DivAddImg>
         <D.Formulario>
@@ -43,29 +53,38 @@ function CreateDialog({onClose, pokemonList}) {
             name="name"
             placeholder="Nome"
           ></D.Input>
+
           <D.Label for="hp">hp</D.Label>
           <D.Input type="number" id="hp" name="hp" placeholder="Hp"></D.Input>
           <D.Label for="peso"> peso</D.Label>
-          <D.Input
-            type="number"
-            id="pedo"
-            name="peso"
-            placeholder="Peso"
-          ></D.Input>
-          <D.Label for="altura">altura</D.Label>
-          <D.Input
-            type="number"
-            id="altura"
-            name="altura"
-            placeholder="Altura"
-          ></D.Input>
+          <D.DivSpan>
+            <D.InputUndefined
+              type="number"
+              id="pedo"
+              name="peso"
+              placeholder="Peso"
+            ></D.InputUndefined>
+            <D.Span>kg</D.Span>
+          </D.DivSpan>
+          <D.Label for="altura">
+            altura
+            <D.DivSpan>
+              <D.InputUndefined
+                type="number"
+                id="altura"
+                name="altura"
+                placeholder="Altura"
+              ></D.InputUndefined>
+              <D.Span>cm</D.Span>
+            </D.DivSpan>
+          </D.Label>
 
           <D.DivTipo>
             <D.ImageDivader src={divider}></D.ImageDivader>
             <D.TextTipo>Tipo</D.TextTipo>
           </D.DivTipo>
 
-          <Dropdown tipos={pokemonList}></Dropdown>
+          <Dropdown addType={addType}></Dropdown>
 
           <D.DivHabilidade>
             <D.ImageDivader src={divider}></D.ImageDivader>
@@ -101,36 +120,46 @@ function CreateDialog({onClose, pokemonList}) {
             <D.ImageDivader src={divider}></D.ImageDivader>
             <D.TextStatistic>Estatística</D.TextStatistic>
           </D.DivStatistic>
-          <D.Label for="defesa"><img src={defesa}></img>defesa</D.Label>
+          <D.Label for="defesa">
+            <img src={defesa}></img>defesa
+          </D.Label>
           <D.Input
             type="number"
             id="defesa"
             name="defesa"
             placeholder="00"
           ></D.Input>
-          <D.Label for="ataque"><img src={ataque}></img> Ataque</D.Label>
+          <D.Label for="ataque">
+            <img src={ataque}></img> Ataque
+          </D.Label>
           <D.Input
             type="number"
             id="ataque"
             name="ataque"
             placeholder="00"
           ></D.Input>
-          <D.Label for="defEspecial"><img src={defesa}></img>Defesa Especial</D.Label>
+          <D.Label for="defEspecial">
+            <img src={defesa}></img>Defesa Especial
+          </D.Label>
           <D.Input
             type="number"
             id="defEspecial"
             name="defEspecial"
             placeholder="00"
           ></D.Input>
-          <D.Label for="AtaEspecial"><img src={ataque}></img> Defesa Especial</D.Label>
+          <D.Label for="AtaEspecial">
+            <img src={ataque}></img> Defesa Especial
+          </D.Label>
           <D.Input
             type="number"
             id="ataEpecial"
             name="ataEspecial"
             placeholder="00"
           ></D.Input>
-          <D.Label for="velocidade"><img src={velocidade}></img> Velocidade</D.Label>
-          
+          <D.Label for="velocidade">
+            <img src={velocidade}></img> Velocidade
+          </D.Label>
+
           <D.Input
             type="number"
             id="velocidade"

@@ -12,13 +12,13 @@ import searchingTooltip from "../../assets/searchingTooltip.png";
 import pokeBola from "../../assets/pokeBola.png";
 import error from "../../assets/Error.png";
 
-
 function Map() {
   const [pokemonInfo, setPokemonInfo] = useState();
   const [loading, setLoading] = useState(false);
   const [pokemonList, setPokemonList] = useState(Array(6).fill(undefined));
   const [isFull, setIsFull] = useState(false);
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
+  const [createIsOpen, setCreateIsOpen] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [isCreated, setIsCreated] = useState(false);
 
@@ -75,7 +75,7 @@ function Map() {
   }
 
   function createPokemon() {
-    setDialogIsOpen(true);
+    setCreateIsOpen(true);
     setIsCreated(true);
   }
 
@@ -114,22 +114,18 @@ function Map() {
 
         {dialogIsOpen && (
           <Modal isOpen={dialogIsOpen}>
-            {!isCreated && (
-              <>
-                <Dialog
-                  pokemon={pokemonInfo}
-                  onClose={() => {
-                    setPokemonInfo(undefined);
-                    setDialogIsOpen(false);
-                    setIsSaved(false);
-                  }}
-                ></Dialog>
-                {!isSaved && (
-                  <M.DivPokeBola>
-                    <M.Image onClick={savePokemon} src={pokeBola}></M.Image>
-                  </M.DivPokeBola>
-                )}
-              </>
+            <Dialog
+              pokemon={pokemonInfo}
+              onClose={() => {
+                setPokemonInfo(undefined);
+                setDialogIsOpen(false);
+                setIsSaved(false);
+              }}
+            ></Dialog>
+            {!isSaved && (
+              <M.DivPokeBola>
+                <M.Image onClick={savePokemon} src={pokeBola}></M.Image>
+              </M.DivPokeBola>
             )}
 
             {isSaved && (
@@ -139,11 +135,16 @@ function Map() {
                 </M.DivColor>
               </M.DivFree>
             )}
+          </Modal>
+        )}
+
+        {createIsOpen && (
+          <Modal isOpen={createIsOpen}>
             {isCreated && (
               <CreateDialog
                 onClose={() => {
                   setPokemonInfo(undefined);
-                  setDialogIsOpen(false);
+                  setCreateIsOpen(false);
                   setIsSaved(false);
                 }}
               ></CreateDialog>

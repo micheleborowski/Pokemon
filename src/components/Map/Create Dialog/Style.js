@@ -53,8 +53,10 @@ export const DivAddImg = styled.div`
   justify-content: center;
 `;
 
-export const inputImage = styled.input`
-display:none;
+export const InputImage = styled.input`
+display: none;
+  height: 87px;
+  width: 93px;
 `;
 
 export const AddImg = styled.img`
@@ -210,6 +212,35 @@ export const Input = styled.input`
   font-weight: 600;
   font-size: 15px;
   line-height: 24px;
+`;
+
+
+export const DivSpan = styled.div`
+  border: 2px solid #e4e9f2;
+  background: #ffffff;
+  border-radius: 3px;
+
+  height: 48px;
+  width: 315px;
+
+  display: flex;
+  align-items: center;
+`;
+
+export const Span = styled.span`
+  float: right;
+  font-family: Open Sans;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 24px;
+
+  margin-right: 38px;
+`;
+
+export const InputUndefined = styled(Input)`
+  outline: none;
+  border: none;
+  
 `;
 
 export const InputHab = styled(Input)`
