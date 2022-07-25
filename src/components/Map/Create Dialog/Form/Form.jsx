@@ -17,10 +17,9 @@ function Form() {
     formState: { erros },
   } = useForm();
 
-
   const [pokemonType, setPokemonType] = useState([]);
-  
-  const onSubmit = data => console.log(data);
+
+  const onSubmit = (data) => console.log(data);
 
   function addType(type) {
     setPokemonType([...pokemonType, type]);
@@ -35,14 +34,20 @@ function Form() {
     <F.Formulario name="formCreation" onSubmit={handleSubmit(onSubmit)}>
       <F.Label for="name">Nome</F.Label>
       <F.Input
+        {...register("text", { required: true })}
         type="text"
         name="name"
         placeholder="Nome"
-        ref={register('name', {required:true})}
       ></F.Input>
 
       <F.Label for="hp">hp</F.Label>
-      <F.Input type="number" id="hp" name="hp" placeholder="Hp"></F.Input>
+      <F.Input
+        {...register("number", { required: true })}
+        type="number"
+        id="hp"
+        name="hp"
+        placeholder="Hp"
+      ></F.Input>
       <F.Label for="peso"> peso</F.Label>
       <F.DivSpan>
         <F.InputUndefined
