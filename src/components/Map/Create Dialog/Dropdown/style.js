@@ -13,14 +13,33 @@ export const DivSelect = styled.div`
   align-items: center;
 `;
 
-export const LabelSelect = styled.label`
-  outline: none;
-  border: none;
-
+export const TextSelect = styled.p`
   font-family: Open Sans;
   font-size: 15px;
   font-weight: 600;
   line-height: 24px;
+
+  color: #c5cee0;
+`;
+
+export const DivTypes = styled.div`
+  height: 28px;
+  width: 85px;
+  border-radius: 100px;
+
+  background-color: #c5cee0;
+
+  display:flex;
+  align-items: center;
+`;
+
+export const Types = styled.p`
+  margin-left: 12px;
+`;
+
+export const DeleteType = styled.img`
+  padding: 5px;
+  cursor:pointer;
 `;
 
 export const ImgSelect = styled.img`
@@ -29,7 +48,7 @@ export const ImgSelect = styled.img`
 
   cursor: pointer;
 
-  position:absolute;
+  position: absolute;
 `;
 
 export const DivDropdown = styled.div`
@@ -43,20 +62,20 @@ export const DivDropdown = styled.div`
 
   margin-top: 4px;
 
-  display:flex;
+  display: flex;
   flex-direction: column;
 
   overflow-y: scroll;
 `;
 
 export const TipoText = styled.p`
-margin-left:12px;
-margin-top: 14px;
+  margin-left: 12px;
+  margin-top: 14px;
 
-font-family: Open Sans;
-font-size: 15px;
-font-weight: 600;
-line-height: 24px;
+  font-family: Open Sans;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 24px;
 
-color: #2E3A59;
+  color: #2e3a59;
 `;

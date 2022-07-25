@@ -49,12 +49,11 @@ function Map() {
   }
 
   function savePokemon() {
-    const newList = pokemonList;
-    const index = newList.findIndex((pokemon) => pokemon === undefined);
-    newList[index] = pokemonInfo;
-    setPokemonList(newList);
+    const index = pokemonList.findIndex((pokemon) => pokemon === undefined);
+    pokemonList[index] = pokemonInfo;
+    setPokemonList(pokemonList);
 
-    if (newList[newList.length - 1] !== undefined) {
+    if (pokemonList[pokemonList.length - 1] !== undefined) {
       setIsFull(true);
     }
 

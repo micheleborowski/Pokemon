@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import Portal from "../Portal/Portal";
 import {Backdrop, Content} from './styles';
 
-const Modal = ({ isOpen, children, onSave}) => {
+const Modal = ({ isOpen, children}) => {
   if (!isOpen) {
     return null;
   }
