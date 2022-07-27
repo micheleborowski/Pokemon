@@ -1,5 +1,46 @@
 import styled from "styled-components";
 
+export const Div = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+export const DivAddImg = styled.div`
+  height: 247px;
+  width: 247px;
+
+  border-radius: 100%;
+  border: 4px solid #00d68f;
+  background: #f7f9fc;
+
+  position: absolute;
+  top: -260px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const LabelImage = styled.label`
+  background-color: transparent;
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  position: absolute;
+`;
+
+export const InputImage = styled.input`
+  height: 87px;
+  width: 93px;
+
+  display: none;
+`;
+
+export const AddImg = styled.img`
+  height: 87px;
+  width: 93px;
+`;
+
 export const Label = styled.label`
   margin-top: 24px;
 
@@ -181,4 +222,13 @@ export const InputUndefined = styled(Input)`
 
 export const InputHab = styled(Input)`
   margin-top: 12px;
+`;
+
+export const errorSpan = styled.span`
+  font-family: Open Sans;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 24px;
+
+  color: #ff3d71;
 `;

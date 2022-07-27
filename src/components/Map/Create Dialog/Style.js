@@ -37,29 +37,3 @@ export const DivEnd = styled.div`
   top: -60px;
 `;
 
-export const DivAddImg = styled.div`
-  height: 247px;
-  width: 247px;
-
-  border-radius: 100%;
-  border: 4px solid #00d68f;
-  background: #f7f9fc;
-
-  position: absolute;
-  top: -150px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const InputImage = styled.input`
-  display: none;
-  height: 87px;
-  width: 93px;
-`;
-
-export const AddImg = styled.img`
-  height: 87px;
-  width: 93px;
-`;

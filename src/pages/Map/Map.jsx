@@ -1,10 +1,11 @@
 import React from "react";
 import { useState } from "react";
-import * as M from "./StyleMap";
+import * as S from "./StyleMap";
 import Modal from "../../components/Map/Modal/Modal";
 import SideBar from "../../components/Map/SideBar/sideBar";
 import Dialog from "../../components/Map/Dialog/Dialog";
 import CreateDialog from "../../components/Map/Create Dialog/CreateDialog";
+import SavedDialog from "../../components/Map/DialogSaved/SavedDialog";
 
 import ashFront from "../../assets/ashFront.png";
 import searchTooltip from "../../assets/searchTooltip.png";
@@ -19,6 +20,7 @@ function Map() {
   const [isFull, setIsFull] = useState(false);
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
   const [createIsOpen, setCreateIsOpen] = useState(false);
+  const [savedIsOpen, setSavedIsOpen] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [isCreated, setIsCreated] = useState(false);
 
@@ -39,6 +41,15 @@ function Map() {
       peso: data.weight,
       tipos: data.types,
       habilidades: data.abilities,
+      ataque: data.stats.find((elemento) => elemento.stat.name === "attack"),
+      defesa: data.stats.find((elemento) => elemento.stat.name === "defense"),
+      ataqueEspecial: data.stats.find(
+        (elemento) => elemento.stat.name === "special-attack"
+      ),
+      defesaEspecial: data.stats.find(
+        (elemento) => elemento.stat.name === "special-defense"
+      ),
+      velocidade: data.stats.find((elemento) => elemento.stat.name === "speed"),
     };
 
     setTimeout(() => {
@@ -48,7 +59,7 @@ function Map() {
     }, 1000);
   }
 
-  function savePokemon() {
+  function savePokemon(pokemon) {
     const index = pokemonList.findIndex((pokemon) => pokemon === undefined);
     pokemonList[index] = pokemonInfo;
     setPokemonList(pokemonList);
@@ -70,7 +81,7 @@ function Map() {
     setPokemonList(filteredList);
     setIsFull(false);
     setIsSaved(false);
-    setDialogIsOpen(false);
+    setSavedIsOpen(false);
   }
 
   function createPokemon() {
@@ -79,36 +90,36 @@ function Map() {
   }
 
   return (
-    <M.DivPage>
+    <S.DivPage>
       <SideBar
         onSelectedPokemon={(pokemon) => {
           setPokemonInfo(pokemon);
-          setDialogIsOpen(true);
+          setSavedIsOpen(true);
           setIsSaved(true);
           console.log(pokemon);
         }}
         createPokemon={createPokemon}
         pokemonList={pokemonList}
       />
-      <M.Container>
+      <S.Container>
         {!loading && (
-          <M.TooltipElement>
+          <S.TooltipElement>
             {!isFull && (
               <>
-                <M.ImageSearch src={searchTooltip}></M.ImageSearch>
-                <M.ImageAshFront
+                <S.ImageSearch src={searchTooltip}></S.ImageSearch>
+                <S.ImageAshFront
                   onClick={searchPokemon}
                   src={ashFront}
-                ></M.ImageAshFront>
+                ></S.ImageAshFront>
               </>
             )}
             {isFull && (
               <>
-                <M.ImageError src={error}></M.ImageError>
-                <M.ImageAshFront src={ashFront}></M.ImageAshFront>
+                <S.ImageError src={error}></S.ImageError>
+                <S.ImageAshFront src={ashFront}></S.ImageAshFront>
               </>
             )}
-          </M.TooltipElement>
+          </S.TooltipElement>
         )}
 
         {dialogIsOpen && (
@@ -121,19 +132,27 @@ function Map() {
                 setIsSaved(false);
               }}
             ></Dialog>
-            {!isSaved && (
-              <M.DivPokeBola>
-                <M.Image onClick={savePokemon} src={pokeBola}></M.Image>
-              </M.DivPokeBola>
-            )}
+            <S.DivPokeBola>
+              <S.Image onClick={savePokemon} src={pokeBola}></S.Image>
+            </S.DivPokeBola>
+          </Modal>
+        )}
 
-            {isSaved && (
-              <M.DivFree>
-                <M.DivColor onClick={() => freePokemon(pokemonInfo)}>
-                  <M.TextFree>Liberar pokemon</M.TextFree>
-                </M.DivColor>
-              </M.DivFree>
-            )}
+        {savedIsOpen && (
+          <Modal isOpen={savedIsOpen}>
+            <SavedDialog
+              pokemon={pokemonInfo}
+              onClose={() => {
+                setPokemonInfo(undefined);
+                setSavedIsOpen(false);
+                setIsSaved(false);
+              }}
+            ></SavedDialog>
+            <S.DivFree>
+              <S.DivColor onClick={() => freePokemon(pokemonInfo)}>
+                <S.TextFree>Liberar pokemon</S.TextFree>
+              </S.DivColor>
+            </S.DivFree>
           </Modal>
         )}
 
@@ -141,6 +160,11 @@ function Map() {
           <Modal isOpen={createIsOpen}>
             {isCreated && (
               <CreateDialog
+                onCreate={(pokemon) => {
+                  setPokemonInfo(pokemon);
+                  savePokemon();
+                  setCreateIsOpen(false);
+                }}
                 onClose={() => {
                   setPokemonInfo(undefined);
                   setCreateIsOpen(false);
@@ -152,13 +176,13 @@ function Map() {
         )}
 
         {loading && (
-          <M.DivLoading>
-            <M.ImageLoading src={searchingTooltip}></M.ImageLoading>
-            <M.DivRunning></M.DivRunning>
-          </M.DivLoading>
+          <S.DivLoading>
+            <S.ImageLoading src={searchingTooltip}></S.ImageLoading>
+            <S.DivRunning></S.DivRunning>
+          </S.DivLoading>
         )}
-      </M.Container>
-    </M.DivPage>
+      </S.Container>
+    </S.DivPage>
   );
 }
 
