@@ -20,9 +20,38 @@ function Form({ onCreate }) {
   const [pokemonType, setPokemonType] = useState([]);
 
   const onSubmit = (data) => {
-    onCreate(data);
+    console.log("pokemon criado", data);
+    const pokemon = {
+      altura: Number(data.altura),
+      ataque: getEstrutura(data.ataque, "attack"),
+      ataqueEspecial: getEstrutura(data.ataqueEspecial, "special-attack"),
+      defesa: getEstrutura(data.defesa, "defense"),
+      defesaEspecial: getEstrutura(data.defesaEspecial, "special-defense"),
+      velocidade: getEstrutura(data.velocidade, "speed"),
+      hp: getEstrutura(data.hp, "hp"),
+      id: Math.random() * 10000 + 808,
+      nome: data.name,
+      peso: Number(data.peso),
+      tipos: [],
+      habilidades: [
+        { ability: { name: data.habilidade1 } },
+        { ability: { name: data.habilidade2 } },
+        { ability: { name: data.habilidade3 } },
+        { ability: { name: data.habilidade4 } },
+      ],
+      image: imageSrc,
+    };
+    onCreate(pokemon);
+    // console.log(pokemon);
   };
   const [imageSrc, setImageSrc] = useState();
+
+  function getEstrutura(baseStat, name) {
+    return {
+      base_stat: Number(baseStat),
+      stat: { name },
+    };
+  }
 
   function addType(type) {
     setPokemonType([...pokemonType, type]);
@@ -52,8 +81,8 @@ function Form({ onCreate }) {
           <S.LabelImage htmlFor="imageUpload"></S.LabelImage>
           <S.InputImage
             {...register("image")}
+            name="image"
             type="file"
-            id="imageUpload"
             accept="image"
             onChange={(e) => uploadImage(e)}
           ></S.InputImage>

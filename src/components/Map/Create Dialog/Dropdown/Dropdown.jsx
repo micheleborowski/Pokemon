@@ -2,10 +2,11 @@ import React from "react";
 import * as D from "./style";
 import { useState, useEffect } from "react";
 
-import closeType from "../../../../assets/closeType.png";
+import Tipos from "./Tipos/Tipos";
+
 import select from "../../../../assets/Select.png";
 
-function Dropdown({ addType, pokemonType, removeType}) {
+function Dropdown({ addType, pokemonType, removeType }) {
   const [isSelected, setIsSelected] = useState(false);
   const [listTypes, setListTypes] = useState([]);
   const [isType, setIsType] = useState(false);
@@ -27,7 +28,7 @@ function Dropdown({ addType, pokemonType, removeType}) {
     setIsType(true);
   }
 
-  function deleteType(index, deletedType ){
+  function deleteType(index, deletedType) {
     removeType(index, deletedType);
   }
 
@@ -38,12 +39,7 @@ function Dropdown({ addType, pokemonType, removeType}) {
         {isType && (
           <>
             {pokemonType.map((tipo, index) => {
-              return (
-                <D.DivTypes>
-                  <D.Types key={index}>{tipo}</D.Types>
-                  <D.DeleteType src={closeType} onClick={()=> deleteType(tipo, index)}></D.DeleteType>
-                </D.DivTypes>
-              );
+              return <div key={index}>{Tipos(tipo, index, deleteType)}</div>;
             })}
           </>
         )}

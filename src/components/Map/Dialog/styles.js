@@ -33,7 +33,7 @@ export const DivEnd = styled.div`
 
   position: relative;
   height: 336px;
-  background-color: #F7F9FC;
+  background-color: #f7f9fc;
   top: -60px;
 `;
 
@@ -44,7 +44,7 @@ export const PokemonImage = styled.img`
   top: 32px;
   border-radius: 100%;
   border: 4px solid #00d68f;
-  background: #F7F9FC;
+  background: #f7f9fc;
 
   position: absolute;
   top: -150px;
@@ -156,4 +156,3 @@ export const Habilidades = styled.p`
 
   color: #2e3a59;
 `;
-

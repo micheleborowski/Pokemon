@@ -28,18 +28,36 @@ export const Content = styled.div`
 
   height: 559px;
   width: 360px;
-  
-  right:0;
+
+  right: 0;
   left: 0;
   top: 0;
-  bottom:0;
+  bottom: 0;
   border-radius: 24px;
-  border-top-right-radius:0px;
-  border-bottom-right-radius:0px;
 
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 
-  background-color: #F7F9FC;
+  background-color: #f7f9fc;
 
   overflow: auto;
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 1px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: transparent;
+  }
 `;

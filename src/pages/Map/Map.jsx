@@ -12,6 +12,7 @@ import searchTooltip from "../../assets/searchTooltip.png";
 import searchingTooltip from "../../assets/searchingTooltip.png";
 import pokeBola from "../../assets/pokeBola.png";
 import error from "../../assets/Error.png";
+import { useEffect } from "react";
 
 function Map() {
   const [pokemonInfo, setPokemonInfo] = useState();
@@ -24,13 +25,14 @@ function Map() {
   const [isSaved, setIsSaved] = useState(false);
   const [isCreated, setIsCreated] = useState(false);
 
+  function generateId(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
   async function searchPokemon() {
     setLoading(true);
     const apiPokemon = "https://pokeapi.co/api/v2/pokemon/";
-    const idAleatorio = (min, max) => {
-      return Math.floor(Math.random() * (max - min + 1) + min);
-    };
-    const response = await fetch(`${apiPokemon}${idAleatorio(1, 807)}/`);
+    const response = await fetch(`${apiPokemon}${generateId(1, 807)}/`);
     const data = await response.json();
 
     const novoPokemon = {
@@ -59,9 +61,10 @@ function Map() {
     }, 1000);
   }
 
-  function savePokemon(pokemon) {
+  function savePokemon(newPokemon) {
     const index = pokemonList.findIndex((pokemon) => pokemon === undefined);
-    pokemonList[index] = pokemonInfo;
+    pokemonList[index] = newPokemon;
+    console.log(pokemonList);
     setPokemonList(pokemonList);
 
     if (pokemonList[pokemonList.length - 1] !== undefined) {
@@ -96,7 +99,6 @@ function Map() {
           setPokemonInfo(pokemon);
           setSavedIsOpen(true);
           setIsSaved(true);
-          console.log(pokemon);
         }}
         createPokemon={createPokemon}
         pokemonList={pokemonList}
@@ -133,7 +135,10 @@ function Map() {
               }}
             ></Dialog>
             <S.DivPokeBola>
-              <S.Image onClick={savePokemon} src={pokeBola}></S.Image>
+              <S.Image
+                onClick={() => savePokemon(pokemonInfo)}
+                src={pokeBola}
+              ></S.Image>
             </S.DivPokeBola>
           </Modal>
         )}
@@ -162,7 +167,7 @@ function Map() {
               <CreateDialog
                 onCreate={(pokemon) => {
                   setPokemonInfo(pokemon);
-                  savePokemon();
+                  savePokemon(pokemon);
                   setCreateIsOpen(false);
                 }}
                 onClose={() => {

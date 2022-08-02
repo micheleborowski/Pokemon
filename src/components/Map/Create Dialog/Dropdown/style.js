@@ -29,17 +29,23 @@ export const DivTypes = styled.div`
 
   background-color: #c5cee0;
 
-  display:flex;
+  display: flex;
   align-items: center;
 `;
 
 export const Types = styled.p`
   margin-left: 12px;
+
+  font-family: Open Sans;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  text-transform: uppercase;
 `;
 
 export const DeleteType = styled.img`
   padding: 5px;
-  cursor:pointer;
+  cursor: pointer;
 `;
 
 export const ImgSelect = styled.img`

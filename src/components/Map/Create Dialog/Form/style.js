@@ -30,10 +30,11 @@ export const LabelImage = styled.label`
 `;
 
 export const InputImage = styled.input`
-  height: 87px;
-  width: 93px;
-
-  display: none;
+  position: absolute;
+  width: 247px;
+  height: 247px;
+  border-radius: 247px;
+  opacity: 0;
 `;
 
 export const AddImg = styled.img`

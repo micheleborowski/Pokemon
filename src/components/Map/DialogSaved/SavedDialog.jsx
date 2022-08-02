@@ -7,12 +7,12 @@ import ataque from "../../../assets/ataque.png";
 import close from "../../../assets/Close.png";
 
 function Dialog({ pokemon, onClose }) {
-
   function mostraHabilidades(habilidades = []) {
     const abilityNames = habilidades.map(
       (habilidade) => habilidade.ability.name
     );
-    return abilityNames.join(", ");
+    const filteredNames =abilityNames.filter((elemento)=> elemento !== "")
+    return filteredNames.join(", ");
   }
   return (
     <>
@@ -22,9 +22,10 @@ function Dialog({ pokemon, onClose }) {
       <S.DivEnd>
         <S.PokemonImage
           src={
+            pokemon.image ??
             "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" +
-            pokemon.id +
-            ".png"
+              pokemon.id +
+              ".png"
           }
         ></S.PokemonImage>
         <S.DivRolagem>
