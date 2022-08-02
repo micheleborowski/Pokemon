@@ -11,7 +11,8 @@ function Dialog({ pokemon, onClose }) {
     const abilityNames = habilidades.map(
       (habilidade) => habilidade.ability.name
     );
-    const filteredNames =abilityNames.filter((elemento)=> elemento !== "")
+
+    const filteredNames = abilityNames.filter((elemento) => elemento !== "");
     return filteredNames.join(", ");
   }
   return (
@@ -48,23 +49,32 @@ function Dialog({ pokemon, onClose }) {
               <S.FisicoText>{pokemon.peso + " kg"}</S.FisicoText>
             </S.Infos>
           </S.DivInfos>
-          <S.ImageDivider src={divider}></S.ImageDivider>
-          <S.Atributos>tipo</S.Atributos>
+
+          <S.DivDivider>
+            <S.ImageDivider src={divider}></S.ImageDivider>
+            <S.Atributos>tipo</S.Atributos>
+          </S.DivDivider>
           <S.DivTipo>
             {pokemon.tipos.map((tipo) => {
               return <S.Tipos>{tipo.type.name}</S.Tipos>;
             })}
           </S.DivTipo>
 
-          <S.Atributos>habilidades</S.Atributos>
+          <S.DivDivider>
+            <S.ImageDivider src={divider}></S.ImageDivider>
+            <S.Atributos>habilidades</S.Atributos>
+          </S.DivDivider>
           <S.DivHabilidades>
             <S.Habilidades>
               {mostraHabilidades(pokemon.habilidades)}
             </S.Habilidades>
           </S.DivHabilidades>
 
-          <S.Atributos>estatísticas</S.Atributos>
-
+          <S.DivDivider>
+            <S.ImageDivider src={divider}></S.ImageDivider>
+            <S.Atributos>estatísticas</S.Atributos>
+          </S.DivDivider>
+          
           <S.DivStatistic>
             <S.DivEach>
               <S.DivTitle>

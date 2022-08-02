@@ -103,10 +103,22 @@ export const FisicoText = styled.p`
   color: #2e3a59;
 `;
 
+export const DivDivider = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+
+  margin-top: 30px;
+  margin-bottom: 30px;
+`;
+
 export const ImageDivider = styled.img`
-  padding-top: 42px;
   height: 2px;
   width: 280px;
+
+  position: absolute;
 `;
 
 export const Atributos = styled.p`
@@ -118,6 +130,9 @@ export const Atributos = styled.p`
   text-transform: uppercase;
 
   color: #2e3a59;
+  background-color: #f7f9fc;
+
+  position: absolute;
 `;
 
 export const DivTipo = styled.div`

@@ -41,18 +41,24 @@ function Dialog({ pokemon, onClose }) {
             <img src={divider}></img>
             <S.Infos>
               <S.Fisico>peso</S.Fisico>
-              <S.FisicoText>{pokemon.peso +" kg"}</S.FisicoText>
+              <S.FisicoText>{pokemon.peso + " kg"}</S.FisicoText>
             </S.Infos>
           </S.DivInfos>
-          <S.ImageDivider src={divider}></S.ImageDivider>
-          <S.Atributos>tipo</S.Atributos>
+          <S.DivDivider>
+            <S.ImageDivider src={divider}></S.ImageDivider>
+            <S.Atributos>tipo</S.Atributos>
+          </S.DivDivider>
           <S.DivTipo>
             {pokemon.tipos.map((tipo) => {
               return <S.Tipos>{tipo.type.name}</S.Tipos>;
             })}
           </S.DivTipo>
 
-          <S.Atributos>habilidades</S.Atributos>
+          <S.DivDivider>
+            <S.ImageDivider src={divider}></S.ImageDivider>
+            <S.Atributos>habilidades</S.Atributos>
+          </S.DivDivider>
+
           <S.DivHabilidades>
             <S.Habilidades>
               {mostraHabilidades(pokemon.habilidades)}
